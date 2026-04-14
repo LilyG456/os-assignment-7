@@ -12,6 +12,14 @@
 #include "customer.h"
 #include "bartender.h"
 
+int num_threads;
+
+sem_t* bar_capacity;
+sem_t* customer_ready;
+sem_t* drink_ready;
+sem_t* payment_ready;
+sem_t* payment_done;
+
 void printBanner();
 void init();
 void cleanup();
@@ -75,8 +83,8 @@ void init() {
 	bar_capacity = sem_open("/bar_capacity", O_CREAT, 0644, 1);
 	customer_ready = sem_open("/customer_ready", O_CREAT, 0644, 0);
 	drink_ready = sem_open("/drink_ready", O_CREAT, 0644, 0);
-	payment_ready  = sem_open("/payment_ready", O_CREAT, 0600, 0);
-	payment_done   = sem_open("/payment_done", O_CREAT, 0600, 0);
+	payment_ready = sem_open("/payment_ready", O_CREAT, 0644, 0);
+	payment_done = sem_open("/payment_done", O_CREAT, 0644, 0);
 }
 
 /**
